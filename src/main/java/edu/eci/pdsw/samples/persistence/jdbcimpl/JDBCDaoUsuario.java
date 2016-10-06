@@ -60,7 +60,7 @@ public class JDBCDaoUsuario implements DaoUsuario {
     @Override
     public void save(Usuario u) throws PersistenceException {
         PreparedStatement ps;
-        String sql = "INSERT INTO Usuaios(email,Nombre) VALUES (?,?)";
+        String sql = "INSERT INTO Usuarios(email,Nombre) VALUES (?,?)";
         
         try {
             Usuario us=load(u.getEmail());

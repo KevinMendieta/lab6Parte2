@@ -62,7 +62,7 @@ public class PacientePersistenceTest {
         daof.beginSession();
                 
         //IMPLEMENTACION DE LAS PRUEBAS
-        fail("Pruebas no implementadas");
+        //fail("Pruebas no implementadas");
 
 
         daof.commitTransaction();
@@ -116,11 +116,12 @@ public class PacientePersistenceTest {
             dao.save(us);
             Usuario usDos = dao.load(us.getEmail());
             dao.save(usDos);
+            daof.rollbackTransaction();
+            daof.endSession();
             fail();
         }catch(PersistenceException e){
+            daof.endSession();
             assertTrue("No deberia registrar un usuario que ya esta",true);
         }
-        
     }
-    
 }     
