@@ -99,8 +99,28 @@ public class PacientePersistenceTest {
                 Logger.getLogger(PacientePersistenceTest.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
-      }   
     }
-
-
-      
+    
+    @Test
+    public void usuarioYaRegistrado()throws IOException, PersistenceException{
+        DaoFactory daof = null;
+        try{
+            InputStream input = null;
+            input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+            Properties properties = new Properties();
+            properties.load(input);
+            daof = DaoFactory.getInstance(properties);
+            daof.beginSession();
+            DaoUsuario dao = daof.getDaoUsuario();
+            Usuario us = new Usuario("abc","Evangeline");
+            dao.save(us);
+            Usuario usDos = new Usuario("abc","Evangeline");
+            dao.save(usDos);
+            fail();
+        }catch(PersistenceException e){
+            assertTrue("No deberia registrar un usuario que ya esta",true);
+        }
+        
+    }
+    
+}     
