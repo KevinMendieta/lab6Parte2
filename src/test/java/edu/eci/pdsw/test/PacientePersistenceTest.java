@@ -81,12 +81,13 @@ public class PacientePersistenceTest {
             daof = DaoFactory.getInstance(properties);
             daof.beginSession();
             DaoUsuario dao = daof.getDaoUsuario();
-            Usuario us = new Usuario();
+            Usuario us = new Usuario("abc","Evangeline");
             dao.save(us);
-            Usuario usua= dao.load("");// ???
+            Usuario usua= dao.load("abc");
+            Assert.assertEquals("El nombre de usuario y correo no corresponden al usuario", "Evangeline", usua.getNombre());
             daof.commitTransaction();
             daof.endSession();
-            Assert.assertEquals("No se guardo correctamente el  nuevo con mas de una consulta", "Nombre", usua.getNombre());
+            
         } catch (PersistenceException | IOException ex) {
             try {
                 if (daof != null) {
