@@ -114,7 +114,7 @@ public class PacientePersistenceTest {
             DaoUsuario dao = daof.getDaoUsuario();
             Usuario us = new Usuario("abc","Evangeline");
             dao.save(us);
-            Usuario usDos = new Usuario("abc","Evangeline");
+            Usuario usDos = dao.load(us.getEmail());
             dao.save(usDos);
             fail();
         }catch(PersistenceException e){
