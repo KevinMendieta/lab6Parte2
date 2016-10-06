@@ -57,20 +57,18 @@ public class JDBCDaoUsuario implements DaoUsuario {
     public void save(Usuario u) throws PersistenceException {
         PreparedStatement ps;
         String sql = "INSERT INTO Usuaios(email,Nombre) VALUES (?,?)";
-        //Usuario us=load(u.getEmail());
+        
         try {
+            Usuario us=load(u.getEmail());
+            if(us!=null) throw new PersistenceException("Ya existe");
             ps=con.prepareStatement(sql);
             ps.setString(1, u.getEmail());
             ps.setString(2, u.getNombre());
-            ps.execute();        
-            con.commit();        
+            ps.execute();
+            con.commit();
         } catch (SQLException ex) {
             Logger.getLogger(JDBCDaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-       
-
     }
 
     @Override
